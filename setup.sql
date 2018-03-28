@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS node(
 
 CREATE TABLE IF NOT EXISTS messages(
     message_id SERIAL,
-    node_id INT NOT NULL,
+    node_id INT NOT NULL UNIQUE,
     button_pressed BOOLEAN,
     temperature SMALLINT,
     vibration REAL
