@@ -10,12 +10,6 @@ CREATE TABLE IF NOT EXISTS node(
     active BOOLEAN
 );
 
-INSERT INTO node (node_id, sigfox_id, active)
-VALUES (default, '1D1BF9', true);
-
-INSERT INTO node (node_id, sigfox_id, active)
-VALUES (default, '1D1BFA', false);
-
 CREATE TABLE IF NOT EXISTS messages(
     message_id SERIAL,
     node_id INT NOT NULL,
@@ -25,7 +19,7 @@ CREATE TABLE IF NOT EXISTS messages(
 );
 
 CREATE TABLE IF NOT EXISTS sensor(
-    node_id INT NOT NULL,
+    node_id INT NOT NULL UNIQUE,
     temperature_sensed BOOLEAN,
     vibration_sensed BOOLEAN
 );
