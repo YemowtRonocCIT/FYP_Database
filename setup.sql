@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS messages(
     node_id INT NOT NULL UNIQUE,
     button_pressed BOOLEAN,
     temperature SMALLINT,
-    vibration REAL
+    vibration REAL,
+    time_added TIME with time zone NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS sensor(
