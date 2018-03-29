@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS messages(
     button_pressed BOOLEAN,
     temperature SMALLINT,
     vibration REAL,
-    time_added TIME with time zone NOT NULL
+    time_added TIMESTAMP with time zone NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS sensor(
