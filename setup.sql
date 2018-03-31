@@ -1,27 +1,63 @@
 CREATE DATABASE lifebuoy;
+
 \c lifebuoy
+
+CREATE TABLE IF NOT EXISTS location(
+    location_id SERIAL PRIMARY KEY,
+    location_name TEXT NOT NULL UNIQUE,
+    location_type TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS buoy_location(
+    location_id SERIAL,
+    buoy_id SERIAL,
+    latitude DOUBLE PRECISION NOT NULL,
+    longitude DOUBLE PRECISION NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS buoy(
+    buoy_id SERIAL PRIMARY KEY,
+    at_location BOOLEAN NOT NULL,
+    time_checked TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS node_buoy(
+    node_id SERIAL,
+    buoy_id SERIAL
+);
+
 CREATE TABLE IF NOT EXISTS node(
-    /*
-        sigfox_id is length 16 to allow comfortable extensibility.
-        I cannot find the max length for a sigfox ID.
-    */
     node_id SERIAL PRIMARY KEY,
-    sigfox_id VARCHAR(16) NOT NULL UNIQUE,
-    active BOOLEAN
+    sigfox_id TEXT NOT NULL UNIQUE,
+    active BOOLEAN NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS messages(
-    message_id SERIAL,
-    node_id INT NOT NULL UNIQUE,
-    button_pressed BOOLEAN,
-    temperature SMALLINT,
-    vibration REAL,
-    time_added TIMESTAMP with time zone NOT NULL
+CREATE TABLE IF NOT EXISTS last_message(
+    node_id SERIAL PRIMARY KEY,
+    buttonPress BOOLEAN NOT NULL,
+    temp_sensed BOOLEAN NOT NULL,
+    vib_sensed BOOLEAN NOT NULL,
+    temperature INT NOT NULL,
+    vibration REAL NOT NULL,
+    time_entered TIMESTAMP WITH TIME ZONE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS sensor(
-    node_id INT NOT NULL UNIQUE,
-    temperature_sensed BOOLEAN,
-    vibration_sensed BOOLEAN
+CREATE TABLE IF NOT EXISTS moved_buoy(
+    node_id SERIAL,
+    buoy_id SERIAL NOT NULL,
+    latititude DOUBLE PRECISION NOT NULL,
+    longitude DOUBLE PRECISION NOT NULL,
+    location_type TEXT NOT NULL,
+    location_id SERIAL NOT NULL,
+    temperature INT NOT NULL,
+    vibration REAL NOT NULL,
+    time_moved TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS message(
+    node_id SERIAL NOT NULL,
+    message_text TEXT NOT NULL,
+    time_entered TIMESTAMP WITH TIME ZONE NOT NULL,
+    time_sent TIMESTAMP WITH TIME ZONE NOT NULL
 );
 
