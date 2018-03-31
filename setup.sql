@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS node(
 
 CREATE TABLE IF NOT EXISTS last_message(
     node_id SERIAL PRIMARY KEY,
-    buttonPress BOOLEAN NOT NULL,
+    button_press BOOLEAN NOT NULL,
     temp_sensed BOOLEAN NOT NULL,
     vib_sensed BOOLEAN NOT NULL,
     temperature INT NOT NULL,
