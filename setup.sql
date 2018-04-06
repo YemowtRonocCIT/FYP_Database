@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS location(
 
 CREATE TABLE IF NOT EXISTS buoy_location(
     location_id SERIAL,
-    buoy_id SERIAL,
+    buoy_id SERIAL UNIQUE,
     latitude DOUBLE PRECISION NOT NULL,
     longitude DOUBLE PRECISION NOT NULL
 );
@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS buoy(
 );
 
 CREATE TABLE IF NOT EXISTS node_buoy(
-    node_id SERIAL,
-    buoy_id SERIAL
+    node_id SERIAL UNIQUE,
+    buoy_id SERIAL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS node(
@@ -61,3 +61,5 @@ CREATE TABLE IF NOT EXISTS message(
     time_sent TIMESTAMP WITH TIME ZONE NOT NULL
 );
 
+ALTER TABLE message
+ADD UNIQUE (node_id, time_sent);
